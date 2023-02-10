@@ -2,12 +2,15 @@ let formSearch = $('#search-form');
 
 // api kiey for spoontacular api
 const apiKey = '&apiKey=c0fcbd7c25a14b24b516d287693d9360';
+
 const apiKey2 = 'k1qbPQr1VChVz4qnj3hhtTFNLs1CGc6T';
+
 
 
 function getResponse(search) {
   // queryURL = 'https://api.spoonacular.com/recipes/complexSearch?query=burgers&maxFat=25&number=20' + apiKey;
   queryURL = 'https://api.spoonacular.com/recipes/complexSearch?query=' + search + '&maxFat=25&number=20' + apiKey;
+
   queryURL2 = 'https://api.giphy.com/v1/gifs/search?api_key=' + apiKey2 + '&limit=1&q=' + search
   console.log(queryURL);
   console.log(queryURL2);
@@ -61,7 +64,7 @@ function displayGiphy() {
 
 $("#search-form").on('submit', function (event) {
   event.preventDefault();
-
+  
   // let search = $('#search-form').val().trim();
   let search = $('#search').val().trim();
   console.log(typeof search);
@@ -70,13 +73,6 @@ $("#search-form").on('submit', function (event) {
   formSearch.val('');
 
   getResponse(search);
+
   displayGiphy()
-
-
 });
-
-
-
-
-
-
