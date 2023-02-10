@@ -2,25 +2,31 @@
 
   let formSearch = $('#search-form');
 
-  // api kiey for spoontacular api
-  // const apiKey = '&apiKey=c0fcbd7c25a14b24b516d287693d9360';
-  const apiKey = '&apiKey=7f77bc0ac3a540babaab9a36bfd949e8';
+// api kiey for spoontacular api
+const apiKey = '&apiKey=c0fcbd7c25a14b24b516d287693d9360';
+
+const apiKey2 = 'k1qbPQr1VChVz4qnj3hhtTFNLs1CGc6T';
 
 
-  function getResponse(search) {
-    // queryURL = 'https://api.spoonacular.com/recipes/complexSearch?query=burgers&maxFat=25&number=20' + apiKey;
-    queryURL = 'https://api.spoonacular.com/recipes/complexSearch?query=' + search + '&maxFat=25&number=20&number=9' + apiKey;
-    console.log(queryURL);
 
-    // ajax request to the URL above 
-    $.ajax({
-        url: queryURL,
-        method: "GET"    
-      }).then(function(response) {
-        console.log(response);
-        displayRecipe(response);
-      });
-  }
+function getResponse(search) {
+  // queryURL = 'https://api.spoonacular.com/recipes/complexSearch?query=burgers&maxFat=25&number=20' + apiKey;
+  queryURL = 'https://api.spoonacular.com/recipes/complexSearch?query=' + search + '&maxFat=25&number=20' + apiKey;
+
+  queryURL2 = 'https://api.giphy.com/v1/gifs/search?api_key=' + apiKey2 + '&limit=1&q=' + search
+  console.log(queryURL);
+  console.log(queryURL2);
+
+  // ajax request to the URL above 
+  $.ajax({
+    url: queryURL,
+    method: "GET"
+  }).then(function (response) {
+    console.log(response);
+    displayRecipe(response);
+
+  });
+}
 
   // function to obtain api request results and display them on the screen
   function displayRecipe(response){
@@ -84,23 +90,32 @@
 
   randomRecipes();
 
-  $("#search-form").on('submit', function(event) {
-    event.preventDefault();
-    
-    // let search = $('#search-form').val().trim();
-    let search = $('#search').val().trim();
-    console.log(typeof search);
-    console.log('search: ' + search);
+function displayGiphy() {
+  fetch(queryURL2)
+    .then(response => response.json())
+    .then(content => {
+      // console log data returned from api
+      console.log(content.data);
+
+      // append to empty div element
+      let giphyIMG = content.data[0].images.downsized.url
+      console.log(giphyIMG)
+
+      $('#' + 'giphy1').attr('src', giphyIMG)
+    })
+}
+
+$("#search-form").on('submit', function (event) {
+  event.preventDefault();
+  
+  // let search = $('#search-form').val().trim();
+  let search = $('#search').val().trim();
+  console.log(typeof search);
+  console.log('search: ' + search);
 
     formSearch.val('');
 
     getResponse(search);
 
-
-  });
-
-
-// }
-
-
-
+  displayGiphy()
+});
