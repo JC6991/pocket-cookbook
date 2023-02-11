@@ -71,7 +71,7 @@ function getResponse(search) {
 
   function displayRandomRecipes(response) {
     console.log(response);  
-    for(let i = 0; i < 3; i++) {      
+    for(let i = 9; i < 12; i++) {      
       // create IDs to assign to HTML elements
         let imageID = 'img' + i;
         let titleID = 'title' + i;
@@ -88,7 +88,7 @@ function getResponse(search) {
     }
   }
 
-  randomRecipes();
+  // randomRecipes();
 
 function displayGiphy() {
   fetch(queryURL2)
@@ -115,7 +115,7 @@ $("#search-form").on('submit', function (event) {
 
     formSearch.val('');
 
-    getResponse(search);
+    // getResponse(search);
 
-  displayGiphy()
+  // displayGiphy()
 });
