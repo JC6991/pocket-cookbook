@@ -1,3 +1,52 @@
+/* custom font family added - Abolition */
+@font-face {
+    font-family: Abolition;
+    src: url(../fonts/Abolition/AbolitionTest-Regular.otf);
+}
+
+body {
+    font-family: Abolition;
+    background-color: rgb(194, 196,206);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Abolition;   
+  font-weight: 200;
+  letter-spacing: 1px;
+}
+
+header {
+    background-color: rgb(194, 196,206);
+}
+
+#header {
+    font-size: 50px;
+}
+
+#inspiration .cardImage {
+    border: solid px rgb(1, 7, 43);
+    border-radius: 40px; 
+    background-color: rgb(194, 196,206);
+    margin-bottom: 5px;       
+}
+
+#inspiration .cardTitle {
+    font-family: Abolition;
+    font-size: 20px;
+    font-weight: 200px;
+    letter-spacing: 1px;
+    text-align: center;
+    background-color: rgb(194, 196,206);
+    color: rgb(1, 7, 43);
+    padding: 10px;
+
+}
+
 #giphy1 {
     display: block;
     margin-top: 20px;
@@ -5,4 +54,8 @@
     margin-right: auto;
     align-content: center;
     max-width: 33%;
+}
+
+footer {
+    background-color: rgb(194, 196,206);    
 }
