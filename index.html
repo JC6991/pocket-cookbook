@@ -19,10 +19,11 @@
       
     
 <!-- Search form -->
-<form class="form-inline d-flex justify-content-center md-form form-sm mt-0">
+<form id="search-form" class="form-inline d-flex justify-content-center md-form form-sm mt-0">
     <i class="fas fa-search" aria-hidden="true"></i>
     <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search"
-      aria-label="Search">
+      aria-label="Search" id="search">
+
       <button type="submit" class="btn search-button" id="search-button" aria-label="submit search">
         Search
       </button>
@@ -33,88 +34,84 @@
   <div class="container">
     
     <div class="row">
-      <div class="col-4">
-        <img src="..." class="card-img-top" alt="...">
+      <div class="col-4">      
+        <img id="img0" src="" class="card-img-top" alt="...">
+        <div id="title0" class="card">1
+          <a class="btn btn-primary btn-sm" role="button" data-toggle="modal" 
+          data-target="#exampleModal">Recipe</a>
+        </div>        
+      </div>
       
-        <div class="card">1
-          <a class="btn btn-primary btn-sm" role="button" data-toggle="modal" 
-          data-target="#exampleModal">Recipe</a>
-        </div>
-        
-        
-      </div>
       <div class="col-4">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card">2
+        <img id="img1" src="" class="card-img-top" alt="...">
+        <div id="title1" class="card">2
           <a class="btn btn-primary btn-sm" role="button" data-toggle="modal" 
           data-target="#exampleModal">Recipe</a>
         </div>
+
       </div>
 
-      <div class="col-4">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card">3
+      <div class="col-4">        
+        <img id="img2" src="" class="card-img-top" alt="...">
+        <div id="title2" class="card">3
           <a class="btn btn-primary btn-sm" role="button" data-toggle="modal" 
           data-target="#exampleModal">Recipe</a>
         </div>
       </div>
     </div>
   </div>
-</div>
 
 <div class="container">
     <div class="row">
       <div class="col-4">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card">4
+        <img id="img3" src="" class="card-img-top" alt="...">
+        <div id="title3" class="card">4
+          <a class="btn btn-primary btn-sm" role="button" data-toggle="modal" 
+          data-target="#exampleModal">Recipe</a>
+        </div>     
+      </div>
+      <div class="col-4">
+        <img id="img4" src="" class="card-img-top" alt="...">
+        <div id="title4" class="card">5
           <a class="btn btn-primary btn-sm" role="button" data-toggle="modal" 
           data-target="#exampleModal">Recipe</a>
         </div>
-        
       </div>
       <div class="col-4">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card">5
-          <a class="btn btn-primary btn-sm" role="button" data-toggle="modal" 
-          data-target="#exampleModal">Recipe</a>
-        </div>
-      </div>
-      <div class="col-4">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card">6
+        <img id="img5" src="" class="card-img-top" alt="...">
+        <div id="title5" class="card">6
           <a class="btn btn-primary btn-sm" role="button" data-toggle="modal" 
           data-target="#exampleModal">Recipe</a>
         </div>
       </div>
     </div>
   </div>
-</div>
+
 <div class="container">
     <div class="row">
       <div class="col-4">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card">7
+        <img id="img6" src="" class="card-img-top" alt="...">
+        <div id="title6" class="card">7
           <a class="btn btn-primary btn-sm" role="button" data-toggle="modal" 
           data-target="#exampleModal">Recipe</a>
         </div>
-        
       </div>
       <div class="col-4">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card">8
+        <img id="img7" src="" class="card-img-top" alt="...">
+        <div id="title7" class="card">8
           <a class="btn btn-primary btn-sm" role="button" 
           data-toggle="modal" data-target="#exampleModal">Recipe</a>
         </div>
       </div>
       <div class="col-4">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card">9
+        <img id="img8" src="" class="card-img-top" alt="...">
+        <div id="title8" class="card">9
           <a class="btn btn-primary btn-sm" role="button" data-toggle="modal" 
           data-target="#exampleModal">Recipe</a>
         </div>
-        </div>
-        </div>
       </div>
+    </div>
+  </div>
 
 
         <!-- Footer Region -->
@@ -122,13 +119,15 @@
   <div class="col-sm-12">
 
     <!-- Line Break followed by closing -->
+
+    <img id="giphy1" src="" class="card-img-top" alt="...">
+
     <hr>
     <h5 class="text-center">
       <small>Made by const jOjOjO
   
       </small>
     </h5>
-
   </div>
 </div>
 
@@ -176,5 +175,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="./assets/js/script.js"></script>
+    <script src="./assets/js/recipe.js"></script>
 </body>
 </html>
