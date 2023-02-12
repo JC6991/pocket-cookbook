@@ -34,14 +34,14 @@ header {
     transition: all 250ms ease-in-out; 
   }
 
-#inspiration .cardImage {
+.cardImage {
     border: solid px rgb(1, 7, 43);
     border-radius: 40px; 
     background-color: rgb(194, 196,206);
     margin-bottom: 5px;       
 }
 
-#inspiration .cardTitle {
+.cardTitle {
     font-family: Abolition;
     font-size: 20px;
     font-weight: 200px;
