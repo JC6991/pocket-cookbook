@@ -11,7 +11,7 @@ const apiKey2 = 'k1qbPQr1VChVz4qnj3hhtTFNLs1CGc6T';
 
 function getResponse(search) {
   // queryURL = 'https://api.spoonacular.com/recipes/complexSearch?query=burgers&maxFat=25&number=20' + apiKey;
-  queryURL = 'https://api.spoonacular.com/recipes/complexSearch?query=' + search + '&maxFat=25&number=20' + apiKey;
+  queryURL = 'https://api.spoonacular.com/recipes/complexSearch?query=' + search + '&maxFat=25&number=9' + apiKey;
 
   queryURL2 = 'https://api.giphy.com/v1/gifs/search?api_key=' + apiKey2 + '&limit=1&q=' + search
   console.log(queryURL);
@@ -33,8 +33,8 @@ function displayRecipe(response) {
   // for loop to iterate through results array 
   for (let i = 0; i < 9; i++) {
     // create HTML elements an assign to a variable
-    // let imgEl = $('<img>');
-    // let foodType = $('<div>');
+    let imgEl = $('<img>');
+    let foodTitle = $('<div>');
 
     // create IDs to assign to HTML elements
     let imageID = 'img' + i;
@@ -42,17 +42,25 @@ function displayRecipe(response) {
 
     // grab the recipe image and titile and assign to a variable
     let image = response.results[i].image;
-    let title = response.results[i].title;
+    let title = response.results[i].title; 
+
+    // add attributes to elements
+    $(imgEl).attr('src', image);
+    $(imgEl).attr('id', imageID);
+    $(foodTitle).attr('id', titleID);
+
+    // add classes to HTML elements
+    $(imgEl).addClass('card-img-top cardImage');
+    $(foodTitle).addClass('card cardTitle');
 
     // set value of created ID
     // imgEl.text(image);
-    $('#' + titleID).text(title);
+    $(foodTitle).text(title);
 
-    // add attributes to elements
-    $('#' + imageID).attr('src', image);
-
-    // $('body').append(imgEl)
-    // $('body').append(foodType)
+    // append to card containers
+    $('#card' + i).append(imgEl)
+    $('#card' + i).append(foodTitle)    
+    
   }
 }
 
@@ -117,5 +125,5 @@ $("#search-form").on('submit', function (event) {
 
   getResponse(search);
 
-  displayGiphy()
+  // displayGiphy()
 });
