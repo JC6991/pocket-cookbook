@@ -17,7 +17,7 @@ function clearPreviousSearch() {
 
 function getResponse(search) {
   // queryURL = 'https://api.spoonacular.com/recipes/complexSearch?query=burgers&maxFat=25&number=20' + apiKey;
-  queryURL = 'https://api.spoonacular.com/recipes/complexSearch?query=' + search + '&maxFat=25&number=1' + apiKey;
+  queryURL = 'https://api.spoonacular.com/recipes/complexSearch?query=' + search + '&maxFat=25&number=9' + apiKey;
 
   queryURL2 = 'https://api.giphy.com/v1/gifs/search?api_key=' + apiKey2 + '&limit=1&q=' + search
   console.log(queryURL);
@@ -56,8 +56,8 @@ function displayRecipe(response) {
     let foodTitle = $('<div>');
 
     // create IDs to assign to HTML elements
-    let imageID = 'img' + i;
-    let titleID = 'title' + i;
+    // let imageID = 'img' + i;
+    // let titleID = 'title' + i;
 
     // grab the recipe image and titile and assign to a variable
     let image = response.results[i].image;
@@ -67,8 +67,8 @@ function displayRecipe(response) {
 
     // add attributes to elements
     $(imgEl).attr('src', image);
-    $(imgEl).attr('id', imageID);
-    $(foodTitle).attr('id', titleID);
+    $(imgEl).attr('id', recipeID);
+    $(foodTitle).attr('id', recipeID);
     $('#card' + i).attr('data-toggle', 'modal');
     $('#card' + i).attr('data-target', '#exampleModal');
 
@@ -106,15 +106,18 @@ function displayRandomRecipes(response) {
   console.log(response);
   for (let i = 9; i < 12; i++) {
     // create IDs to assign to HTML elements
-    let imageID = 'img' + i;
-    let titleID = 'title' + i;
+    // let imageID = 'img' + i;
+    // let titleID = 'title' + i;
 
     // grab the recipe image and titile and assign to a variable
     let image = response.recipes[i].image;
     let title = response.recipes[i].title;
+    let recipeID = response.results[i].id
 
     // set value of created ID        
     $('#' + titleID).text(title);
+    $(imgEl).attr('id', recipeID);
+    $(foodTitle).attr('id', recipeID);
 
     // add attributes to elements
     $('#' + imageID).attr('src', image);
@@ -138,20 +141,44 @@ function displayGiphy() {
     })
 }
 
-function recipeInstructions(id) {
+$(".recipeCard").on('click', function (event) {
+  $('#modalBody').text('');
+
+  let id = $(this).children('img').attr('id')
   console.log(id);
-  let recipeMethodURL = 'https://api.spoonacular.com/recipes/'+ id + '/analyzedInstructions' + apiKey;
+  let recipeMethodURL = 'https://api.spoonacular.com/recipes/'+ id + '/analyzedInstructions?'  + apiKey;
 
   $.ajax({
-    url: recipeMethodURL,
-    method: "GET"
-  }).then(function (response) {
-    console.log(response);
-    
+        url: recipeMethodURL,
+        method: "GET"
+      }).then(function (response) {
+        console.log(response);
+        
+         // create HTML elements
+        let olEl = $('<ol>');
 
-  });
-  
-}
+        // add attribute to ol element
+        olEl.attr('id', 'recipeList')
+        
+        // append list to modal
+        $('#modalBody').append(olEl);
+
+        for (let i = 0; i < response[0].steps.length; i++) {
+          console.log('Hello');
+          // create HTML element
+          let liEl = $('<li>');
+
+          // add class to each list element
+
+          // add value of response array 
+          liEl.text(response[0].steps[i].step);
+
+          // append to created ol element
+          $('#recipeList').append(liEl);
+        }
+      })
+})
+
 
 $("#search-form").on('submit', function (event) {
   event.preventDefault();
@@ -163,9 +190,9 @@ $("#search-form").on('submit', function (event) {
 
   $('#search').val('');
 
-  // clearPreviousSearch();
+  clearPreviousSearch();
 
-  // getResponse(search);
+  getResponse(search);
 
   // displayGiphy()
 
