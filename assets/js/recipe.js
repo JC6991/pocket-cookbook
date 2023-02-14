@@ -2,14 +2,17 @@
 
 let formSearch = $('#search-form');
 
+
 let recipeEl = document.getElementById("search");
 let searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 let clearEl = document.getElementById("clear-history");
 
 // api key for spoontacular api
-const apiKey = '&apiKey=320438433f174d17b09d1c9e8d620477 ';
+// const apiKey = '&apiKey=7f77bc0ac3a540babaab9a36bfd949e8';
+const apiKey = '&apiKey=bde81041405e4c90a0859dee8cd0078f';
 
-const apiKey2 = 'k1qbPQr1VChVz4qnj3hhtTFNLs1CGc6T';
+
+const apiKey2 = '&apiKey=k1qbPQr1VChVz4qnj3hhtTFNLs1CGc6T';
 
 // clears the previous recipes when user searches new ingredients
 function clearPreviousSearch() {
@@ -25,7 +28,7 @@ function getResponse(search) {
 
   queryURL2 = 'https://api.giphy.com/v1/gifs/search?api_key=' + apiKey2 + '&limit=1&q=' + search
   console.log(queryURL);
-  console.log(queryURL2);
+  // console.log(queryURL2);
 
   // ajax request to the URL above 
   $.ajax({
@@ -110,13 +113,13 @@ function displayRandomRecipes(response) {
   console.log(response);
   for (let i = 9; i < 12; i++) {
     // create IDs to assign to HTML elements
-    // let imageID = 'img' + i;
-    // let titleID = 'title' + i;
+    let imageID = 'img' + i;
+    let titleID = 'title' + i;
 
     // grab the recipe image and titile and assign to a variable
     let image = response.recipes[i].image;
     let title = response.recipes[i].title;
-    let recipeID = response.results[i].id
+    let recipeID = response.results[i].id;
 
     // set value of created ID        
     $('#' + titleID).text(title);
@@ -128,7 +131,7 @@ function displayRandomRecipes(response) {
   }
 }
 
-// randomRecipes();
+randomRecipes();
 
 function displayGiphy() {
   fetch(queryURL2)
@@ -147,41 +150,72 @@ function displayGiphy() {
 
 $(".recipeCard").on('click', function (event) {
   $('#modalBody').text('');
+  
+  $('#recipeList').text('');
 
+  // extract id of the card that has been clicked
   let id = $(this).children('img').attr('id')
   console.log(id);
   let recipeMethodURL = 'https://api.spoonacular.com/recipes/' + id + '/analyzedInstructions?' + apiKey;
 
   $.ajax({
-    url: recipeMethodURL,
-    method: "GET"
-  }).then(function (response) {
-    console.log(response);
+        url: recipeMethodURL,
+        method: "GET"
+      }).then(function (response) {
+        console.log(response);
+        
+         // create HTML elements
+        let olEl = $('<ol>');
 
-    // create HTML elements
-    let olEl = $('<ol>');
+        // add attribute to ol element
+        olEl.attr('id', 'recipeList')
+        
+        // append list to modal
+        $('#modalBody').append(olEl);
 
-    // add attribute to ol element
-    olEl.attr('id', 'recipeList')
+        // issue with response for steak dish with id=661522.
+        if (id == '661522') {          
+          for (let i = 0; i < response.length; i++) {
+            // create HTML element
+          let listEl = $('<li>');
 
-    // append list to modal
-    $('#modalBody').append(olEl);
+          // add class to each list element
 
-    for (let i = 0; i < response[0].steps.length; i++) {
-      console.log('Hello');
-      // create HTML element
-      let liEl = $('<li>');
+          // add value of response array 
+          listEl.text(response[i].name);
 
-      // add class to each list element
+          // append to created ol element
+          $('#recipeList').append(listEl);
+          }  
+        }
 
-      // add value of response array 
-      liEl.text(response[0].steps[i].step);
+        for (let i = 0; i < response[0].steps.length; i++) {
+          console.log('Hello');
+          // create HTML element
+          let liEl = $('<li>');
 
-      // append to created ol element
-      $('#recipeList').append(liEl);
-    }
-  })
+          // add class to each list element
+
+          // add value of response array 
+          liEl.text(response[0].steps[i].step);
+
+          // append to created ol element
+          $('#recipeList').append(liEl);
+        }
+      })
 })
+
+// $(this).children('img').attr('id')
+
+// $(".recipeCard").on('click', function (event) {
+//   if ($(this).children().attr('id') == 'img10') {
+//     console.log('Hello');
+//   }
+// })
+
+$(".modal").on("hidden.bs.modal", function(){
+  $("#modalBody").html('');
+});
 
 
 $("#search-form").on('submit', function (event) {
