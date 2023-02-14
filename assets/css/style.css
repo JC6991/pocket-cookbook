@@ -7,17 +7,32 @@
 body {
     font-family: Abolition;
     background-color: rgb(194, 196,206);
+    padding-top: 20px;
+}
+.search-form {
+    background-color: black;
+
+}
+
+main {
+    background-color: rgb(1, 7, 43);
 }
 
 h1,
 h2,
-h3,
+
 h4,
 h5,
 h6 {
   font-family: Abolition;   
   font-weight: 200;
   letter-spacing: 1px;
+}
+h3{
+    font-family: Abolition;   
+    font-weight: 200;
+    letter-spacing: 1px;
+    color: aliceblue;
 }
 
 header {
@@ -38,7 +53,8 @@ header {
     border: solid px rgb(1, 7, 43);
     border-radius: 40px; 
     background-color: rgb(194, 196,206);
-    margin-bottom: 5px;       
+    margin-bottom: 5px;  
+    margin-top: 20px;     
 }
 
 .cardTitle {
@@ -52,7 +68,29 @@ header {
     padding: 10px;
 
 }
+.modal-header{
+    background-color:rgb(194, 196,206);
+}
+.modal-footer {
+    background-color:rgb(194, 196,206);
+}
+.modal-body {
+    background-color:rgb(1, 7, 43); 
+    color:rgb(251, 252, 253); 
 
+}
+#close{
+    background-color:rgb(1, 7, 43); 
+
+}
+#search-button{
+    background-color:rgb(1, 7, 43);  
+    color: aliceblue;
+}
+ .row {
+    background-color:rgb(1, 7, 43); 
+    padding-bottom: 20px;
+ }
 #giphy1 {
     display: block;
     margin-top: 20px;
