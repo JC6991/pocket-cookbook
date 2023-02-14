@@ -2,14 +2,18 @@
 
 let formSearch = $('#search-form');
 
-// api kiey for spoontacular api
-const apiKey = '&apiKey=7f77bc0ac3a540babaab9a36bfd949e8';
+let recipeEl = document.getElementById("search");
+let searchHistory = JSON.parse(localStorage.getItem("search")) || [];
+let clearEl = document.getElementById("clear-history");
+
+// api key for spoontacular api
+const apiKey = '&apiKey=320438433f174d17b09d1c9e8d620477 ';
 
 const apiKey2 = 'k1qbPQr1VChVz4qnj3hhtTFNLs1CGc6T';
 
 // clears the previous recipes when user searches new ingredients
 function clearPreviousSearch() {
-  for(let i = 0; i < 9; i++) {
+  for (let i = 0; i < 9; i++) {
     $('#card' + i).text('');
   }
 }
@@ -37,7 +41,7 @@ function getResponse(search) {
 // function to obtain api request results and display them on the screen
 function displayRecipe(response) {
   // no results found
-  if(response.results === 0) {
+  if (response.results === 0) {
     // create HTML element
     let h3 = $('<h3>');
 
@@ -63,7 +67,7 @@ function displayRecipe(response) {
     let image = response.results[i].image;
     let title = response.results[i].title;
     let recipeID = response.results[i].id
-    
+
 
     // add attributes to elements
     $(imgEl).attr('src', image);
@@ -82,7 +86,7 @@ function displayRecipe(response) {
 
     // append to card containers
     $('#card' + i).append(imgEl)
-    $('#card' + i).append(foodTitle)     
+    $('#card' + i).append(foodTitle)
   }
 
   // pass the id of the
@@ -146,42 +150,47 @@ $(".recipeCard").on('click', function (event) {
 
   let id = $(this).children('img').attr('id')
   console.log(id);
-  let recipeMethodURL = 'https://api.spoonacular.com/recipes/'+ id + '/analyzedInstructions?'  + apiKey;
+  let recipeMethodURL = 'https://api.spoonacular.com/recipes/' + id + '/analyzedInstructions?' + apiKey;
 
   $.ajax({
-        url: recipeMethodURL,
-        method: "GET"
-      }).then(function (response) {
-        console.log(response);
-        
-         // create HTML elements
-        let olEl = $('<ol>');
+    url: recipeMethodURL,
+    method: "GET"
+  }).then(function (response) {
+    console.log(response);
 
-        // add attribute to ol element
-        olEl.attr('id', 'recipeList')
-        
-        // append list to modal
-        $('#modalBody').append(olEl);
+    // create HTML elements
+    let olEl = $('<ol>');
 
-        for (let i = 0; i < response[0].steps.length; i++) {
-          console.log('Hello');
-          // create HTML element
-          let liEl = $('<li>');
+    // add attribute to ol element
+    olEl.attr('id', 'recipeList')
 
-          // add class to each list element
+    // append list to modal
+    $('#modalBody').append(olEl);
 
-          // add value of response array 
-          liEl.text(response[0].steps[i].step);
+    for (let i = 0; i < response[0].steps.length; i++) {
+      console.log('Hello');
+      // create HTML element
+      let liEl = $('<li>');
 
-          // append to created ol element
-          $('#recipeList').append(liEl);
-        }
-      })
+      // add class to each list element
+
+      // add value of response array 
+      liEl.text(response[0].steps[i].step);
+
+      // append to created ol element
+      $('#recipeList').append(liEl);
+    }
+  })
 })
 
 
 $("#search-form").on('submit', function (event) {
   event.preventDefault();
+
+  // store history array in localstorage
+  const searchTerm = recipeEl.value;
+  searchHistory.push(searchTerm);
+  localStorage.setItem("search", JSON.stringify(searchHistory));
 
   // let search = $('#search-form').val().trim();
   let search = $('#search').val().trim();
@@ -194,6 +203,12 @@ $("#search-form").on('submit', function (event) {
 
   getResponse(search);
 
-  // displayGiphy()
+  displayGiphy()
 
 });
+
+// Clear History button
+clearEl.addEventListener("click", function () {
+  localStorage.clear();
+  searchHistory = [];
+})
