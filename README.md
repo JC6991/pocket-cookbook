@@ -43,6 +43,11 @@ Code
 
 ![image](https://user-images.githubusercontent.com/118123888/219065262-834d85d3-0957-4fe1-8de1-10fd8dc4f1ed.png)
 
+Resources Used
+
+https://blog.logrocket.com/localstorage-javascript-complete-guide/
+https://developers.giphy.com/docs/api
+
 Contributors
 
 
