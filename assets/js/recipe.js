@@ -106,9 +106,7 @@ function randomRecipes() {
 
 function displayRandomRecipes(response) {
   console.log(response);
-  for (let i = 0; i < 3; i++) {
-    console.log('Working');
-    console.log(i);
+  for (let i = 0; i < 3; i++) {        
     // create IDs to assign to HTML elements
     // let imageID = 'imgInsp' + i;
     // console.log(imageID);
@@ -130,21 +128,35 @@ function displayRandomRecipes(response) {
   }
 }
 
-randomRecipes(search);
-queryURL2 = 'https://api.giphy.com/v1/gifs/search?api_key=' + giphyKey + '&limit=1&q=' + search;
-console.log('q=' + queryURL2);
-function displayGiphy() {
+randomRecipes();
+
+
+
+function displayGiphy(search) {
+  queryURL2 = 'https://api.giphy.com/v1/gifs/search?api_key=' + giphyKey + '&limit=1&q=' + search;
+  console.log(queryURL2);
+
   fetch(queryURL2)
     .then(response => response.json())
     .then(content => {
       // console log data returned from api
       console.log(content.data);
+
+      let giphyImgEl = $('<img>');
+
+      
       
       // append to empty div element
       let giphyIMG = content.data[0].images.downsized.url
-      console.log(giphyIMG)
-
+      
       $('#' + 'giphy1').attr('src', giphyIMG)
+
+      $(giphyImgEl).addClass('card-img-top')
+
+      $(giphyImgEl).attr('src', giphyIMG)
+
+      $('#giphy').append(giphyImgEl);
+
     })
 }
 
@@ -155,7 +167,6 @@ $(".recipeCard").on('click', function (event) {
 
   // extract id of the card that has been clicked
   let id = $(this).children('img').attr('id')
-  console.log(id);
 
   let recipeMethodURL = 'https://api.spoonacular.com/recipes/'+ id + '/analyzedInstructions?'  + recipeKey;
 
@@ -163,9 +174,8 @@ $(".recipeCard").on('click', function (event) {
   $.ajax({
         url: recipeMethodURL,
         method: "GET"
-      }).then(function (response) {
-        console.log(response);
-        
+      }).then(function (response) { 
+        console.log(response); 
          // create HTML elements
         let olEl = $('<ol>');
 
@@ -191,8 +201,7 @@ $(".recipeCard").on('click', function (event) {
           }  
         }
 
-        for (let i = 0; i < response[0].steps.length; i++) {
-          console.log('Hello');
+        for (let i = 0; i < response[0].steps.length; i++) {          
           // create HTML element
           let liEl = $('<li>');
 
@@ -222,17 +231,17 @@ $("#search-form").on('submit', function (event) {
   localStorage.setItem("search", JSON.stringify(searchHistory));
 
   // let search = $('#search-form').val().trim();
-  let search = $('#search').val().trim();
-  console.log(typeof search);
-  console.log('search: ' + search);
+  let inputSearch = $('#search').val().trim();  
 
   $('#search').val('');
 
   clearPreviousSearch();
+  console.log(inputSearch);
 
-  getResponse(search);
+  getResponse(inputSearch);
 
-  displayGiphy(search)
+  displayGiphy(inputSearch)
+})
 
 
 // Clear History button
