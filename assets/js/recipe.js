@@ -6,10 +6,13 @@ let formSearch = $('#search-form');
 let recipeEl = document.getElementById("search");
 let searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 let clearEl = document.getElementById("clear-history");
+let recipeButton = document.getElementById("recipeButton");
 
 // api key for spoontacular api
-// const apiKey = '&apiKey=7f77bc0ac3a540babaab9a36bfd949e8';
-const recipeKey = '&apiKey=bde81041405e4c90a0859dee8cd0078f';
+// const recipeKey = '&apiKey=7f77bc0ac3a540babaab9a36bfd949e8';
+// const recipeKey = '&apiKey=bde81041405e4c90a0859dee8cd0078f';
+const recipeKey = '&apiKey=c0fcbd7c25a14b24b516d287693d9360';
+
 
 
 const giphyKey = 'k1qbPQr1VChVz4qnj3hhtTFNLs1CGc6T';
@@ -20,6 +23,8 @@ function clearPreviousSearch() {
   for (let i = 0; i < 9; i++) {
     $('#card' + i).text('');
   }
+
+  $('#giphy').empty();
 }
 
 
@@ -221,6 +226,72 @@ $(".modal").on("hidden.bs.modal", function(){
   $("#modalBody").html('');
 });
 
+// display buttons from local storage
+function createButton(search) {
+  let searchLastValue = localStorage.search[search.length - 1];
+
+  //create HTML element
+  let buttonEl = $('<button>');
+
+  // add id
+  $(buttonEl).attr('id', 'recipeButton')
+
+  // add class
+  $(buttonEl).addClass('btn recipeButton');
+  
+  // add value
+  $(buttonEl).text(search)
+
+  // append button
+  $('#historyRecipe').append(buttonEl);  
+}
+
+// new search if button is clicked on
+$('#historyRecipe').on('click', 'button.recipeButton', function (event) {
+  event.preventDefault();
+  console.log('Hello');
+  let buttonSearch = $(this).text();
+
+  clearPreviousSearch();
+
+  getResponse(buttonSearch);
+
+  displayGiphy(buttonSearch);
+  
+})
+
+// run function on page load to pull data from local storage
+$(document).ready(function() {
+  console.log('Hello');
+  
+  let obj = JSON.parse(localStorage.getItem('search'))
+    // console.log(obj);
+  
+  for(let i = 0; i < obj.length; i++) {
+  
+    let obj = JSON.parse(localStorage.getItem('search'))
+    console.log(obj);
+  
+    // create HTML element
+    let buttonEl = $('<button>');
+
+    // add id
+    $(buttonEl).attr('id', 'recipeButton')
+
+    // add class
+    $(buttonEl).addClass('btn recipeButton');
+    
+    let food = obj[i];
+    // add value
+    $(buttonEl).text(food)
+
+    // append button
+    $('#historyRecipe').append(buttonEl);
+  }
+})
+
+
+
 // event listener for when the form is submitted
 $("#search-form").on('submit', function (event) {
   event.preventDefault();
@@ -235,7 +306,10 @@ $("#search-form").on('submit', function (event) {
 
   $('#search').val('');
 
+  createButton(inputSearch);
+
   clearPreviousSearch();
+
   console.log(inputSearch);
 
   getResponse(inputSearch);
@@ -243,9 +317,9 @@ $("#search-form").on('submit', function (event) {
   displayGiphy(inputSearch)
 })
 
-
 // Clear History button
 clearEl.addEventListener("click", function () {
   localStorage.clear();
   searchHistory = [];
+  $('#historyRecipe').text('');
 })
