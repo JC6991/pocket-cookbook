@@ -4,9 +4,9 @@ let formSearch = $('#search-form');
 
 // api kiey for spoontacular api
 // const apiKey = '&apiKey=7f77bc0ac3a540babaab9a36bfd949e8';
-const apiKey = '&apiKey=bde81041405e4c90a0859dee8cd0078f';
+const recipeKey = '&apiKey=bde81041405e4c90a0859dee8cd0078f';
 
-const apiKey2 = '&apiKey=k1qbPQr1VChVz4qnj3hhtTFNLs1CGc6T';
+const giphyKey = 'k1qbPQr1VChVz4qnj3hhtTFNLs1CGc6T';
 
 // clears the previous recipes when user searches new ingredients
 function clearPreviousSearch() {
@@ -18,12 +18,9 @@ function clearPreviousSearch() {
 
 function getResponse(search) {
   // queryURL = 'https://api.spoonacular.com/recipes/complexSearch?query=burgers&maxFat=25&number=20' + apiKey;
-  queryURL = 'https://api.spoonacular.com/recipes/complexSearch?query=' + search + '&maxFat=25&number=9' + apiKey;
+  queryURL = 'https://api.spoonacular.com/recipes/complexSearch?query=' + search + '&maxFat=25&number=9' + recipeKey;
 
-  queryURL2 = 'https://api.giphy.com/v1/gifs/search?api_key=' + apiKey2 + '&limit=1&q=' + search
-  console.log(queryURL);
-  // console.log(queryURL2);
-
+  
   // ajax request to the URL above 
   $.ajax({
     url: queryURL,
@@ -85,14 +82,11 @@ function displayRecipe(response) {
     $('#card' + i).append(imgEl)
     $('#card' + i).append(foodTitle)     
   }
-
-  // pass the id of the
-  // recipeInstructions(recipeID);
 }
 
 // run an API request to retrieve 3 random recipes to display when the page loads 
 function randomRecipes() {
-  let randomRecipeURL = 'https://api.spoonacular.com/recipes/random?number=3' + apiKey;
+  let randomRecipeURL = 'https://api.spoonacular.com/recipes/random?number=3' + recipeKey;
 
   $.ajax({
     url: randomRecipeURL,
@@ -105,35 +99,40 @@ function randomRecipes() {
 
 function displayRandomRecipes(response) {
   console.log(response);
-  for (let i = 9; i < 12; i++) {
+  for (let i = 0; i < 3; i++) {
+    console.log('Working');
+    console.log(i);
     // create IDs to assign to HTML elements
-    let imageID = 'img' + i;
-    let titleID = 'title' + i;
+    // let imageID = 'imgInsp' + i;
+    // console.log(imageID);
+    // let titleID = 'titleInsp' + i;
+    // console.log(titleID);
 
     // grab the recipe image and titile and assign to a variable
-    let image = response.recipes[i].image;
-    let title = response.recipes[i].title;
-    let recipeID = response.results[i].id;
+    let image = response.recipes[i].image;    
+    let title = response.recipes[i].title;    
+    let inspID = response.recipes[i].id;
 
-    // set value of created ID        
-    $('#' + titleID).text(title);
-    $(imgEl).attr('id', recipeID);
-    $(foodTitle).attr('id', recipeID);
+    // // set value of created ID        
+    $('.inspCard' + i).text(title);
 
-    // add attributes to elements
-    $('#' + imageID).attr('src', image);
+    // // add attributes to elements
+    $('.inspCardImg' + i).attr('src', image);
+    $('.inspCardImg' + i).attr('id', inspID);
+    $('.inspCard' + i).attr('id', inspID);
   }
 }
 
-randomRecipes();
-
+randomRecipes(search);
+queryURL2 = 'https://api.giphy.com/v1/gifs/search?api_key=' + giphyKey + '&limit=1&q=' + search;
+console.log('q=' + queryURL2);
 function displayGiphy() {
   fetch(queryURL2)
     .then(response => response.json())
     .then(content => {
       // console log data returned from api
       console.log(content.data);
-
+      
       // append to empty div element
       let giphyIMG = content.data[0].images.downsized.url
       console.log(giphyIMG)
@@ -150,7 +149,7 @@ $(".recipeCard").on('click', function (event) {
   // extract id of the card that has been clicked
   let id = $(this).children('img').attr('id')
   console.log(id);
-  let recipeMethodURL = 'https://api.spoonacular.com/recipes/'+ id + '/analyzedInstructions?'  + apiKey;
+  let recipeMethodURL = 'https://api.spoonacular.com/recipes/'+ id + '/analyzedInstructions?'  + recipeKey;
 
   $.ajax({
         url: recipeMethodURL,
@@ -199,19 +198,12 @@ $(".recipeCard").on('click', function (event) {
       })
 })
 
-// $(this).children('img').attr('id')
-
-// $(".recipeCard").on('click', function (event) {
-//   if ($(this).children().attr('id') == 'img10') {
-//     console.log('Hello');
-//   }
-// })
-
+// clear the body of modal when the modal is hidden
 $(".modal").on("hidden.bs.modal", function(){
   $("#modalBody").html('');
 });
 
-
+// event listener for when the form is submitted
 $("#search-form").on('submit', function (event) {
   event.preventDefault();
 
@@ -226,6 +218,6 @@ $("#search-form").on('submit', function (event) {
 
   getResponse(search);
 
-  // displayGiphy()
+  displayGiphy(search)
 
 });
