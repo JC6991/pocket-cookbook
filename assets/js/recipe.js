@@ -2,15 +2,22 @@
 
 let formSearch = $('#search-form');
 
-// api kiey for spoontacular api
+
+let recipeEl = document.getElementById("search");
+let searchHistory = JSON.parse(localStorage.getItem("search")) || [];
+let clearEl = document.getElementById("clear-history");
+
+// api key for spoontacular api
 // const apiKey = '&apiKey=7f77bc0ac3a540babaab9a36bfd949e8';
 const recipeKey = '&apiKey=bde81041405e4c90a0859dee8cd0078f';
 
+
 const giphyKey = 'k1qbPQr1VChVz4qnj3hhtTFNLs1CGc6T';
+
 
 // clears the previous recipes when user searches new ingredients
 function clearPreviousSearch() {
-  for(let i = 0; i < 9; i++) {
+  for (let i = 0; i < 9; i++) {
     $('#card' + i).text('');
   }
 }
@@ -35,7 +42,7 @@ function getResponse(search) {
 // function to obtain api request results and display them on the screen
 function displayRecipe(response) {
   // no results found
-  if(response.results === 0) {
+  if (response.results === 0) {
     // create HTML element
     let h3 = $('<h3>');
 
@@ -61,7 +68,7 @@ function displayRecipe(response) {
     let image = response.results[i].image;
     let title = response.results[i].title;
     let recipeID = response.results[i].id
-    
+
 
     // add attributes to elements
     $(imgEl).attr('src', image);
@@ -80,7 +87,7 @@ function displayRecipe(response) {
 
     // append to card containers
     $('#card' + i).append(imgEl)
-    $('#card' + i).append(foodTitle)     
+    $('#card' + i).append(foodTitle)
   }
 }
 
@@ -149,7 +156,9 @@ $(".recipeCard").on('click', function (event) {
   // extract id of the card that has been clicked
   let id = $(this).children('img').attr('id')
   console.log(id);
+
   let recipeMethodURL = 'https://api.spoonacular.com/recipes/'+ id + '/analyzedInstructions?'  + recipeKey;
+
 
   $.ajax({
         url: recipeMethodURL,
@@ -207,6 +216,11 @@ $(".modal").on("hidden.bs.modal", function(){
 $("#search-form").on('submit', function (event) {
   event.preventDefault();
 
+  // store history array in localstorage
+  const searchTerm = recipeEl.value;
+  searchHistory.push(searchTerm);
+  localStorage.setItem("search", JSON.stringify(searchHistory));
+
   // let search = $('#search-form').val().trim();
   let search = $('#search').val().trim();
   console.log(typeof search);
@@ -220,4 +234,9 @@ $("#search-form").on('submit', function (event) {
 
   displayGiphy(search)
 
-});
+
+// Clear History button
+clearEl.addEventListener("click", function () {
+  localStorage.clear();
+  searchHistory = [];
+})
