@@ -5,6 +5,9 @@ Title/Product Name
  Pocket Cookbook-Search for recipes at your fingertips.
  
  Motivation
+ 
+ ![image](https://user-images.githubusercontent.com/118123888/219090595-7cc1cc0c-34ac-4252-96c3-47c02b1b662b.png)
+
 - The purpose of our application is to allow the user to access a treasure chest of food recipes straight from their pocket. The user is given some inspiration from our favourite recipes, or the option of inputing their own choice of dish.
  Our users are varied, they are users that are on the go, to users that are parents and need last minute inspiration, or just users looking to impress and entertain.
 
