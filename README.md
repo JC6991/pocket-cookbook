@@ -49,8 +49,8 @@ Code
 
 Resources Used
 
-https://blog.logrocket.com/localstorage-javascript-complete-guide/
-https://developers.giphy.com/docs/api
+https://blog.logrocket.com/localstorage-javascript-complete-guide/,
+https://developers.giphy.com/docs/api,
 https://spoonacular.com/food-api/docs
 
 Contributors
