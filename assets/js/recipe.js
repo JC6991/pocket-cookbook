@@ -9,9 +9,9 @@ let clearEl = document.getElementById("clear-history");
 let recipeButton = document.getElementById("recipeButton");
 
 // api key for spoontacular api
-// const recipeKey = '&apiKey=7f77bc0ac3a540babaab9a36bfd949e8';
+const recipeKey = '&apiKey=7f77bc0ac3a540babaab9a36bfd949e8';
 // const recipeKey = '&apiKey=bde81041405e4c90a0859dee8cd0078f';
-const recipeKey = '&apiKey=c0fcbd7c25a14b24b516d287693d9360';
+// const recipeKey = '&apiKey=c0fcbd7c25a14b24b516d287693d9360';
 
 
 
