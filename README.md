@@ -4,6 +4,10 @@ Title/Product Name
  
  Pocket Cookbook-Search for recipes at your fingertips.
  
+ Link
+ 
+ https://jc6991.github.io/pocket-cookbook/
+ 
  Motivation
  
  ![image](https://user-images.githubusercontent.com/118123888/219090595-7cc1cc0c-34ac-4252-96c3-47c02b1b662b.png)
@@ -47,6 +51,7 @@ Resources Used
 
 https://blog.logrocket.com/localstorage-javascript-complete-guide/
 https://developers.giphy.com/docs/api
+https://spoonacular.com/food-api/docs
 
 Contributors
 
